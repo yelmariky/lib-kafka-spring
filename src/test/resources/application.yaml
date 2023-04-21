@@ -1,0 +1,7 @@
+my:
+  kafka:
+    consumer:
+      topic: my-topic
+      group-id: my-group-id
+
+
