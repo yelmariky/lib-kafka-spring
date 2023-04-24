@@ -1,20 +1,28 @@
 package fr.younes.libkafkaspring.config;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+@Component
+@ConfigurationProperties(prefix = "my.kafka.consumer")
 public class MyKafkaConsumerConfig {
 
-    private String topic;
-    private String groupId;
+    private String clientId;
+    
 
-    public MyKafkaConsumerConfig(String topic, String groupId) {
-        this.topic = topic;
-        this.groupId = groupId;
+
+
+    /**
+     * @return String return the clientId
+     */
+    public String getClientId() {
+        return clientId;
     }
 
-    public String getTopic() {
-        return topic;
+    /**
+     * @param clientId the clientId to set
+     */
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public String getGroupId() {
-        return groupId;
-    }
 }
