@@ -1,8 +1,18 @@
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${my.kafka.consumer.bootstrap-servers:localhost:9092}
     consumer:
       enable-auto-commit: false
+# application.yml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    enable:
+      kafka: true
+
 
 
 
