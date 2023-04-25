@@ -1,11 +1,13 @@
-package fr.younes.libkafkaspring.config;
+package fr.younes.libkafkaspring.component;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.springframework.kafka.support.Acknowledgment;
 
 import fr.younes.libkafkaspring.processor.MessageProcessor;
 
+@ConditionalOnProperty(name="my.kafka.consumer.enabled",havingValue = "true")
 @Component
 public class MyKafkaConsumer {
 
