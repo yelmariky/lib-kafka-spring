@@ -19,13 +19,24 @@ public class KafkaProducerConfig {
 
     @Value("${spring.kafka.producer.bootstrap-servers}")
     private String bootstrapServers;
+    @Value("${spring.kafka.producer.key-serializer}")
+    private String keySerializer;
+    @Value("${spring.kafka.producer.value-serializer}")
+    private String valueSerializer;
+    @Value("${spring.kafka.registry-url}")
+    private String urlSchemaRegistry;
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
+        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
+        configProps.put("key.converter.schema.registry.url", urlSchemaRegistry);  
+        configProps.put("value.converter.schema.registry.url", urlSchemaRegistry);
+        configProps.put("schema.registry.url", urlSchemaRegistry);  
+
+       // configProps.put(ProducerConfig., urlSchemaRegistry);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 

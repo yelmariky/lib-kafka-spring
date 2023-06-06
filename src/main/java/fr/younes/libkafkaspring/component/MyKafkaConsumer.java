@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.springframework.kafka.support.Acknowledgment;
-
-
+import org.apache.avro.generic.GenericRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,7 @@ import fr.younes.libkafkaspring.processor.MessageProcessor;
 
 @ConditionalOnProperty(name="my.kafka.consumer.enabled",havingValue = "true")
 @Component
-public class MyKafkaConsumer {
+public class MyKafkaConsumer<T> {
 
      final MessageProcessor messageProcessor;
      
@@ -35,24 +35,32 @@ public class MyKafkaConsumer {
     }
 
     @KafkaListener(topics = "${my.kafka.consumer.topic}", groupId = "${my.kafka.consumer.groupId}")
-    public void consumeMessage(String message, Acknowledgment acknowledgment) {
+    public void consumeMessage(ConsumerRecord<String, T> message, Acknowledgment acknowledgment) {
        // Span span = this.tracer.nextSpan().name("on-message").start();
 		//try (Tracer.SpanInScope ws = this.tracer.withSpan(span)) {
+            String key = message.key();
+        Object value = message.value();
+
+           // if (value instanceof T){
             try{
 			log.info("Got message <{}>", message);
+            log.info(String.format("Consumed message -> %s,  partition -> %s, offset -> %s", message.value(),message.partition(),message.offset()));
 			//log.info("<ACCEPTANCE_TEST> <TRACE:{}> Hello from consumer", this.tracer.currentSpan().context().traceId());
-            messageProcessor.process(message);
+            
+                messageProcessor.process(message.value());
             // Le message a été traité avec succès, on envoie un acquittement à Kafka
-            acknowledgment.acknowledge();
+                acknowledgment.acknowledge();
         } catch (Exception e) {
             System.err.println("Erreur lors du traitement du message: " + e.getMessage());
             e.printStackTrace();
             // Dans ce cas, l'acquittement n'est pas envoyé, Kafka peut renvoyer le message ultérieurement
-        }
+   //     }
+    }
+    }
 	/** 	 finally {
 			span.end();
 		}**/
-    }
+   // }
        
             
     

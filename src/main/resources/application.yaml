@@ -1,12 +1,14 @@
 spring:
   kafka:
     bootstrap-servers: ${my.kafka.consumer.bootstrap-servers:localhost:9092}
+    registry-url: http://localhost:8081
     consumer:
       enable-auto-commit: false
     producer:
       bootstrap-servers: ${my.kafka.producer.bootstrap-servers:localhost:9092}
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: ${my.kafka.producer.key-serializer:org.apache.kafka.common.serialization.StringSerializer}
+      value-serializer: ${my.kafka.producer.value-serializer:org.apache.kafka.common.serialization.StringSerializer}
+      
 # application.yml
 management:
   endpoints:

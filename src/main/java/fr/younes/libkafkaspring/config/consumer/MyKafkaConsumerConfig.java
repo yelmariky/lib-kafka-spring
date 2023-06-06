@@ -1,4 +1,4 @@
-package fr.younes.libkafkaspring.config;
+package fr.younes.libkafkaspring.config.consumer;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

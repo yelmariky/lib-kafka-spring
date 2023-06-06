@@ -1,4 +1,4 @@
-package fr.younes.libkafkaspring.config;
+package fr.younes.libkafkaspring.config.consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;

@@ -1,4 +1,4 @@
-package fr.younes.libkafkaspring.config;
+package fr.younes.libkafkaspring.config.consumer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
