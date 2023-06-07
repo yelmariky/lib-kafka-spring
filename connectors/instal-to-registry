@@ -1,0 +1,31 @@
+instal-to-registry.txt
+echo '{
+    "type": "record",
+    "name": "TestObject",
+    "namespace": "ca.dataedu",
+    "fields": [  {
+        "name": "operationType",
+        "type": ["null", "string"],
+        "default": null
+    }, {
+        "name": "updateDescription",
+        "type": ["null", {
+            "type": "record",
+            "name": "UpdateDescription",
+            "fields": [{
+                "name": "removedFields",
+                "type": ["null", {
+                    "type": "array",
+                    "items": ["null", "string"]
+                }],
+                "default": null
+            }]
+        }],
+        "default": null
+    }]
+}' | \
+jq '. | {schema: tojson, schemaType: "JSON"}'
+
+### key-orders
+echo '{"type":"record","name":"keySchema","fields":[{"name":"_id","type":"string"}],"connect.name":"keySchema"}' | \
+jq '. | {schema: tojson, schemaType: "JSON"}'

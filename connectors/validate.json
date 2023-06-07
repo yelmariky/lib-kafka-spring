@@ -1,0 +1,29 @@
+{
+    "_id": {
+        "_data": "82647F2BF6000000022B022C0100296E5A1004A946"
+    },
+    "operationType": "update",
+    "clusterTime": {
+        "$timestamp": {
+            "t": 1686055926,
+            "i": 2
+        }
+    },
+    "ns": {
+        "db": "Tutorial1",
+        "coll": "orders"
+    },
+    "documentKey": {
+        "_id": {
+            "$oid": "6333209bde475b0251b82623"
+        }
+    },
+    "updateDescription": {
+        "updatedFields": {
+            "order_id": 322.0
+        },
+        "removedFields": [
+            "item"
+        ]
+    }
+}
